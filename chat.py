@@ -14,5 +14,4 @@ response = client.responses.create(
     input="你好"
 )
 
-
 print(response.output_text)
