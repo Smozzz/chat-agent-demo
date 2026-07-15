@@ -11,7 +11,18 @@ client=OpenAI(
 
 response = client.responses.create(
     model="gpt-5.4-mini",
-    input="你好"
+    input="""
+        分析下面简历。
+
+        请只输出 JSON。
+        
+        姓名：Tom
+        
+        技能：
+        Python
+        Java
+        Redis
+    """
 )
 
 print(response.output_text)
