@@ -25,7 +25,11 @@ def calculator(str1):
     :param str1:
     :return:
     """
-    return ne.evaluate(str1)
+    result = ne.evaluate(str1)
+    if hasattr(result, "item"):
+        return result.item()
+
+    return result
 
 def search_database(name):
     """
