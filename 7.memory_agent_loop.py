@@ -11,39 +11,6 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
-tools = [
-    {
-        "type": "function",
-        "name": "get_weather",
-        "description": "查询指定城市天气",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "city": {
-                    "type": "string",
-                    "description": "城市名称",
-                }
-            },
-            "required": ["city"],
-        },
-    },
-    {
-        "type": "function",
-        "name": "calculator",
-        "description": "可以进行简单加减乘除的数值计算",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "str1": {
-                    "type": "string",
-                    "description": "要计算的表达式",
-                }
-            },
-            "required": ["str1"],
-        },
-    },
-]
-
 history = []
 
 while True:
@@ -82,12 +49,24 @@ while True:
             name = tool_call.name
             args = json.loads(tool_call.arguments)
 
-            if name == "get_weather":
-                result = get_weather(args["city"])
-            elif name == "calculator":
-                result = calculator(args["str1"])
+            # if name == "get_weather":
+            #     result = get_weather(args["city"])
+            # elif name == "calculator":
+            #     result = calculator(args["str1"])
+            # else:
+            #     result = f"Unknown function: {name}"
+
+            # tool registry
+
+            result=None
+            if name in tool_map:
+                function=tool_map[name]
+                try:
+                    result = function(**args)
+                except Exception as e:
+                    result = f"Tool {name} run failed: {e}"
             else:
-                result = f"Unknown function: {name}"
+                result = f"Tool {name} not found"
 
             print("call_id", tool_call.call_id, "\noutput", result)
 

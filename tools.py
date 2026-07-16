@@ -2,6 +2,39 @@ import datetime
 
 import numexpr as ne
 
+tools = [
+    {
+        "type": "function",
+        "name": "get_weather",
+        "description": "查询指定城市天气",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string",
+                    "description": "城市名称",
+                }
+            },
+            "required": ["city"],
+        },
+    },
+    {
+        "type": "function",
+        "name": "calculator",
+        "description": "可以进行简单加减乘除的数值计算",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "str1": {
+                    "type": "string",
+                    "description": "要计算的表达式",
+                }
+            },
+            "required": ["str1"],
+        },
+    },
+]
+
 def get_weather(city):
     """
     模拟查询城市天气tool
@@ -52,3 +85,10 @@ def get_time():
     :return:
     """
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+tool_map={
+    "get_weather": get_weather,
+    "calculator": calculator,
+    "search_database": search_database,
+    "get_time": get_time
+}
