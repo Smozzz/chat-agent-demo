@@ -22,9 +22,11 @@ server_params = StdioServerParameters(
 
 
 async def main():
+    # 第一层：创建与MCP服务器的stdio连接
     async with stdio_client(server_params) as (read, write):
+        # 第二层：基于这个连接创建会话
         async with ClientSession(read, write) as session:
-
+            # 初始化会话（发送握手请求）
             await session.initialize()
 
             mcp_tools = await session.list_tools()
