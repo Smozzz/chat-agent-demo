@@ -91,6 +91,8 @@ result = app.invoke(
     }
 )
 
+print(result)
+
 for msg in result["messages"]:
 
     print(msg)
