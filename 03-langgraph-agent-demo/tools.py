@@ -26,8 +26,21 @@ def calculator(expression:str)->str:
 
         return f"错误:{e}"
 
+@tool
+def send_email(
+    receiver:str,
+    content:str
+)->str:
+    """
+    发送邮件
+    """
+
+    return (
+        f"邮件已经发送给{receiver}"
+    )
 
 tools=[
     get_weather,
-    calculator
+    calculator,
+    send_email
 ]
